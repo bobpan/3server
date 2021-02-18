@@ -20,8 +20,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  Startup:
+    name: Startup
     runs-on: ubuntu-latest
     steps:
 
@@ -30,13 +30,14 @@ jobs:
       
     # Build
     - name: Create a configuration file
-      run: |        
-        ls /etc
+      run: |
         sudo mkdir -p /etc/shadowsocks-r
         sudo cp config.json /etc/shadowsocks-r/config.json
-        ls /etc
+
+    - name: Pull the image
+      run: |
+        docker pull teddysun/shadowsocks-r
 
     - name: Start a container that listens on 9000
       run: |
-        docker pull teddysun/shadowsocks-r
         docker run -d -p 9000:9000 -p 9000:9000/udp --name ssr --restart=always -v /etc/shadowsocks-r:/etc/shadowsocks-r teddysun/shadowsocks-r
