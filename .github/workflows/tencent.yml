@@ -31,7 +31,9 @@ jobs:
     # Build
     - name: Create a configuration file
       run: |        
+        ls /etc
         mkdir -p /etc/shadowsocks-r
+        ls /etc
         cat > /etc/shadowsocks-r/config.json <<EOF
           {
               "server":"0.0.0.0",
